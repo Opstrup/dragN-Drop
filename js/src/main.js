@@ -5,7 +5,7 @@ let options = {
     defaultTools : [ 'logoTemplate', 'footerTemplate' ],
     pdfViewSettings : {
         cols: 3,
-        rows : 12
+        rows : 2
     }
 };
 

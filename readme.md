@@ -7,6 +7,8 @@ Drag and drop freesoft design tool setup
 
 #### PDF representation
 
+The pdf layout is split up into rows and columns, each element gets dragged from
+the toolbox and dropped in the PDF view.
 
 #### Folder structure
 
@@ -30,3 +32,4 @@ Drag and drop freesoft design tool setup
 ```
 
 #### Unit tests
+1. run npm install --global mocha
