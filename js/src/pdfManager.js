@@ -1,44 +1,50 @@
 const pdfManager = () => {
   const pdfLayout = {
-      firstpage : { rows: [ ] },
-      secondpage : { rows: [ ] },
-      thirdpage : { rows: [ ] },
-      lastpage : { rows: [ ] }
+      firstpage : [ ],
+      secondpage : [ ],
+      thirdpage : [ ],
+      lastpage : [ ]
   };
-  const pdfLayoutMetaData = [ ];
-  // const findElementInLayout = (element, page) => pdfLayout.page.find( elementInLayout => elementInLayout.id == element.id );
-  const isElement = (_element) => _element.id == element.id;
-  const findElementInLayout = (element, page) => pdfLayout.rows.forEach( cols => cols.find(isElement));
-  const updateElementInLayout = (element, page) => {
+  const defaultElement = {
+      "combined" : false,
+      "combinedInfo" : {
+          "colIds" : [ ]
+      },
+      "element" : null
+  };
+    /**
+     * TODO:
+     * Implement move function of the elements.
+     * Debug findElementInLayout, keeps returning undefined even though it finds the element.
+     * Debug deleteElement to see if it deletes the element correct.
+     */
+  const deleteElement = (element, page) => {
+      let elementInLayout = findElementInLayout(element, page);
+      elementInLayout != undefined ? elementInLayout = defaultElement : false
+  };
+  const findElementInLayout = (element, page) => pdfLayout[page].forEach( cols => cols.cols.find((_element) => _element.id == element.id) );
+  const updateElementInLayout = (element, page, row, col) => {
     let elementInLayout = findElementInLayout(element, page);
-    elementInLayout == undefined ? pdfLayout.push(element) : elementInLayout.location = element.location
+    elementInLayout == undefined ? pdfLayout[page][row].cols[col] = element : elementInLayout.location = element.location
   };
-  const isItPossibleToSplit = (row) => pdfLayoutMetaData[row].numCol > 1;
-  const isItPossibleToCombine = (row) => pdfLayoutMetaData[row].numCol < 1;
+  /*const isItPossibleToSplit = (row) => pdfLayoutMetaData[row].numCol > 1;
+  const isItPossibleToCombine = (row) => pdfLayoutMetaData[row].numCol < 1;*/
   return {
       initPDFView : (rows, cols) => {
           for (let page in pdfLayout) {
               for (let i = 0; i < rows; i++) {
-                  pdfLayout[page].rows.push({ cols: [ ] });
+                  pdfLayout[page].push({ cols: [ ] });
                   for (let j = 0; j < cols; j++) {
-                      pdfLayout[page].rows[i].cols.push({
-                          "combined" : false,
-                          "combinedInfo" : {
-                              "colIds" : [ ]
-                          },
-                          "element" : null
-                      },)
+                      pdfLayout[page][i].cols.push(defaultElement)
                   }
               }
           }
       },
-      // TODO: page param is only a placeholder for now
-      addElementToLayout : (element, page) => updateElementInLayout(element, 'firstpage'),
-      // TODO: page param is only placeholder for now, delete correct element from page
-      deleteElementFromLayout : (element, page) => pdfLayout.splice( pdfLayout.indexOf( findElementInLayout(element) ), 1),
+      addElementToLayout : (element, page, row, col) => updateElementInLayout(element, page, row, col),
+      deleteElementFromLayout : (element, page) => deleteElement(element, page),
       getPdfLayout : () => pdfLayout,
       // TODO: implement combine and split functions
-      combineCols : (row, colx, coly) => console.log('Combine col: ', colx, ' with col: ', coly, ' at row: ', row),
-      splitCols : (row, col) => console.log('Split col: ', col, ' at row: ', row)
+      combineCols : (page, row, colx, coly) => console.log('Combine col: ', colx, ' with col: ', coly, ' at row: ', row),
+      splitCols : (page, row, col) => console.log('Split col: ', col, ' at row: ', row)
   }
 }

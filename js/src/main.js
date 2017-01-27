@@ -43,10 +43,13 @@ if (Modernizr.draganddrop) {
                 width : '0px'
             }
         };
+
         if (dropInToolBox) {
-            pdfManager.deleteElementFromLayout(element);
+            // TODO: Update page param here
+            pdfManager.deleteElementFromLayout(element, 'firstpage');
         } else {
-            pdfManager.addElementToLayout(element);
+            // TODO: Update params here to be dynamic
+            pdfManager.addElementToLayout(element, 'firstpage', 1, 1);
         }
         let data = ev.dataTransfer.getData("text");
         ev.target.appendChild(document.getElementById(data));
