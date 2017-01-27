@@ -8,7 +8,7 @@ const pdfManager = () => {
   const pdfLayoutMetaData = [ ];
   // const findElementInLayout = (element, page) => pdfLayout.page.find( elementInLayout => elementInLayout.id == element.id );
   const isElement = (_element) => _element.id == element.id;
-  const findElementInLayout = (element, page) => pdfLayout.page.rows.forEach( cols => cols.find(isElement));
+  const findElementInLayout = (element, page) => pdfLayout.rows.forEach( cols => cols.find(isElement));
   const updateElementInLayout = (element, page) => {
     let elementInLayout = findElementInLayout(element, page);
     elementInLayout == undefined ? pdfLayout.push(element) : elementInLayout.location = element.location
