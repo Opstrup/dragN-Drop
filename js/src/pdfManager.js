@@ -6,8 +6,8 @@ const pdfManager = () => {
       let elementInLayout = findElementInLayout(element)
       elementInLayout == undefined ? pdfLayout.push(element) : elementInLayout.location = element.location
   };
-  const isItPossibleToSplit = (row, col) => true;
-  const isItPossibleToCombine = (row, colx, coly) => true;
+  const isItPossibleToSplit = (row) => pdfLayoutMetaData[row].numCol > 1;
+  const isItPossibleToCombine = (row) => pdfLayoutMetaData[row].numCol < 1;
   return {
       initPDFView : (rows, cols) => {
           for (let i = 0; i < rows; i++) {

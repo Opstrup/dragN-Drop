@@ -1,0 +1,47 @@
+layout : {
+  firstpage : {
+    rows : [
+      {
+        id : 1,
+        cols : [
+          { },
+          { },
+          { }
+        ]
+      },
+      {
+        id : 2,
+        cols : [
+          { },
+          { },
+          { }
+        ]
+      },
+      {
+        id : 3,
+        cols : [
+          { },
+          { },
+          { }
+        ]
+      },
+      {
+        id : 4,
+        cols : [
+          { },
+          { },
+          { }
+        ]
+      }
+    ]
+  },
+  secondpage : {
+
+  },
+  thirdpage : {
+
+  },
+  lastpage : {
+
+  }
+}
