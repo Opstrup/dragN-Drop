@@ -1,0 +1,112 @@
+{
+  "firstpage" : {
+    "rows" : [
+      {
+        "id" : 1,
+        "cols" : [
+          {
+            "id" : 1,
+            "combined" : false,
+            "element" : {
+              "id" : "logo",
+              "fileName" : "logo.png",
+              "meta" : {
+                "size" : { ... }
+              }
+            }
+          },
+          {
+            "id" : 2,
+            "combined" : false,
+            "element" : null
+          },
+          {
+            "id" : 3,
+            "combined" : false,
+            "element" : null
+          }
+        ]
+      },
+      {
+        "id" : 2,
+        "cols" : [
+          {
+            "id" : 1,
+            "combined" : true,
+            "combinedInfo" : {
+              "colIds" : [2, 3]
+            },
+            "element" : {
+              "id" : "taskdescription",
+              "content" : "bla bla bla..",
+              "meta" : {
+                "size" : { ... },
+                "fontSize" : 14,
+                "fontColor" : "#0000"
+              }
+            }
+          },
+          {
+            "id" : 2,
+            "combined" : true,
+            "combinedInfo" : {
+              "colIds" : [1, 3]
+            },
+            "element" : null
+          },
+          {
+            "id" : 3,
+            "combined" : true,
+            "combinedInfo" : {
+              "colIds" : [1, 2]
+            },
+            "element" : null
+          }
+        ]
+      },
+      {
+        "id" : 3,
+        "cols" : [
+          {
+            "id" : 1,
+            "element" : null
+          },
+          {
+            "id" : 2,
+            "element" : null
+          },
+          {
+            "id" : 3,
+            "element" : null
+          }
+        ]
+      },
+      {
+        "id" : 4,
+        "cols" : [
+          {
+            "id" : 1,
+            "element" : null
+          },
+          {
+            "id" : 2,
+            "element" : null
+          },
+          {
+            "id" : 3,
+            "element" : null
+          }
+        ]
+      }
+    ]
+  },
+  "secondpage" : {
+
+  },
+  "thirdpage" : {
+
+  },
+  "lastpage" : {
+
+  }
+}
