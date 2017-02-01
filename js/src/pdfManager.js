@@ -22,10 +22,11 @@ const pdfManager = () => {
       let elementInLayout = findElementInLayout(element, page);
       elementInLayout != undefined ? elementInLayout = defaultElement : false
   };
-  const findElementInLayout = (element, page) => pdfLayout[page].forEach( cols => cols.cols.find((_element) => _element.id == element.id) );
+  const findElementInLayout = (element, page) => pdfLayout[page].forEach( rows => rows.cols.find(_element => _element.id == element.id) );
   const updateElementInLayout = (element, page, row, col) => {
     let elementInLayout = findElementInLayout(element, page);
-    elementInLayout == undefined ? pdfLayout[page][row].cols[col] = element : elementInLayout.location = element.location
+    elementInLayout == undefined ? pdfLayout[page][row].cols[col] = element : elementInLayout.location = element.location;
+    console.log('the layout is now', pdfLayout)
   };
   /*const isItPossibleToSplit = (row) => pdfLayoutMetaData[row].numCol > 1;
   const isItPossibleToCombine = (row) => pdfLayoutMetaData[row].numCol < 1;*/
