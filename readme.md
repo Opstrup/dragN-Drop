@@ -1,4 +1,4 @@
-Drag and drop freesoft design tool setup
+Drag and drop design tool setup
 ----------------------------------------
 
 #### Setup dev inv.
