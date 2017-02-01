@@ -49,7 +49,7 @@ if (Modernizr.draganddrop) {
             pdfManager.deleteElementFromLayout(element, 'firstpage');
         } else {
             // TODO: Update params here to be dynamic
-            pdfManager.addElementToLayout(element, 'firstpage', 1, 1);
+            pdfManager.addElementToLayout(element, 'firstpage', 0, 1);
         }
         let data = ev.dataTransfer.getData("text");
         ev.target.appendChild(document.getElementById(data));

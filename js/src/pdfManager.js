@@ -1,5 +1,5 @@
 const pdfManager = () => {
-  const pdfLayout = {
+  let pdfLayout = {
       firstpage : [ ],
       secondpage : [ ],
       thirdpage : [ ],
@@ -15,18 +15,16 @@ const pdfManager = () => {
     /**
      * TODO:
      * Implement move function of the elements.
-     * Debug findElementInLayout, keeps returning undefined even though it finds the element.
      * Debug deleteElement to see if it deletes the element correct.
      */
   const deleteElement = (element, page) => {
       let elementInLayout = findElementInLayout(element, page);
       elementInLayout != undefined ? elementInLayout = defaultElement : false
   };
-  const findElementInLayout = (element, page) => pdfLayout[page].forEach( rows => rows.cols.find(_element => _element.id == element.id) );
+  const findElementInLayout = (element, page) => pdfLayout[page].reduce((a, b) => a.cols.concat(b.cols)).find(_element => _element.id == element.id);
   const updateElementInLayout = (element, page, row, col) => {
     let elementInLayout = findElementInLayout(element, page);
     elementInLayout == undefined ? pdfLayout[page][row].cols[col] = element : elementInLayout.location = element.location;
-    console.log('the layout is now', pdfLayout)
   };
   /*const isItPossibleToSplit = (row) => pdfLayoutMetaData[row].numCol > 1;
   const isItPossibleToCombine = (row) => pdfLayoutMetaData[row].numCol < 1;*/
