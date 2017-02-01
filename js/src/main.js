@@ -33,10 +33,6 @@ if (Modernizr.draganddrop) {
         ev.preventDefault();
         let element = {
             id : elementBeingDraggedId,
-            location : {
-                row : $(ev.target).parent().data('role'),
-                col : $(ev.target).data('role')
-            },
             content : $(ev.target).text(),
             size : {
                 height : '0px',
@@ -45,11 +41,11 @@ if (Modernizr.draganddrop) {
         };
 
         if (dropInToolBox) {
-            // TODO: Update page param here
-            pdfManager.deleteElementFromLayout(element, 'firstpage', 0, 1);
+            pdfManager.deleteElementFromLayout(element, 'firstpage');
         } else {
-            // TODO: Update params here to be dynamic
-            pdfManager.addElementToLayout(element, 'firstpage', 0, 1);
+            let row = $(ev.target).parent().data('role');
+            let col = $(ev.target).data('role');
+            pdfManager.addElementToLayout(element, 'firstpage', row, col);
         }
         let data = ev.dataTransfer.getData("text");
         ev.target.appendChild(document.getElementById(data));

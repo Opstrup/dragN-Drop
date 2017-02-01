@@ -12,12 +12,15 @@ const pdfManager = () => {
       },
       "element" : null
   };
-    /**
-     * TODO:
-     * Implement move function of the elements.
-     */
-  const deleteElement = (element, page, row, col) => pdfLayout[page][row].cols[col] = defaultElement;
-  const moveElement = (element, page, row, col) => pdfLayout[page][row].cols[col] = element;
+  const deleteElement = (element, page) => pdfLayout[page].forEach(row => {
+      let pos = row.cols.map(e =>  e.id).indexOf(element.id);
+      if (pos !== -1)
+          row.cols[pos] = defaultElement
+  });
+  const moveElement = (element, page, row, col) => {
+      deleteElement(element, page);
+      pdfLayout[page][row].cols[col] = element;
+  };
   const findElementInLayout = (element, page) => pdfLayout[page].reduce((a, b) => a.cols.concat(b.cols)).find(_element => _element.id == element.id);
   const updateElementInLayout = (element, page, row, col) => {
     let elementInLayout = findElementInLayout(element, page);
@@ -37,7 +40,7 @@ const pdfManager = () => {
           }
       },
       addElementToLayout : (element, page, row, col) => updateElementInLayout(element, page, row, col),
-      deleteElementFromLayout : (element, page, row, col) => deleteElement(element, page, row, col),
+      deleteElementFromLayout : (element, page) => deleteElement(element, page),
       getPdfLayout : () => pdfLayout,
       // TODO: implement combine and split functions
       combineCols : (page, row, colx, coly) => console.log('Combine col: ', colx, ' with col: ', coly, ' at row: ', row),
