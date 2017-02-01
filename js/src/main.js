@@ -46,7 +46,7 @@ if (Modernizr.draganddrop) {
 
         if (dropInToolBox) {
             // TODO: Update page param here
-            pdfManager.deleteElementFromLayout(element, 'firstpage');
+            pdfManager.deleteElementFromLayout(element, 'firstpage', 0, 1);
         } else {
             // TODO: Update params here to be dynamic
             pdfManager.addElementToLayout(element, 'firstpage', 0, 1);

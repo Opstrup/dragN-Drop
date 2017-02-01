@@ -15,12 +15,9 @@ const pdfManager = () => {
     /**
      * TODO:
      * Implement move function of the elements.
-     * Debug deleteElement to see if it deletes the element correct.
      */
-  const deleteElement = (element, page) => {
-      let elementInLayout = findElementInLayout(element, page);
-      elementInLayout != undefined ? elementInLayout = defaultElement : false
-  };
+  const deleteElement = (element, page, row, col) => pdfLayout[page][row].cols[col] = defaultElement;
+  const moveElement = (element, page, row, col) => { } //First delete
   const findElementInLayout = (element, page) => pdfLayout[page].reduce((a, b) => a.cols.concat(b.cols)).find(_element => _element.id == element.id);
   const updateElementInLayout = (element, page, row, col) => {
     let elementInLayout = findElementInLayout(element, page);
@@ -40,7 +37,7 @@ const pdfManager = () => {
           }
       },
       addElementToLayout : (element, page, row, col) => updateElementInLayout(element, page, row, col),
-      deleteElementFromLayout : (element, page) => deleteElement(element, page),
+      deleteElementFromLayout : (element, page, row, col) => deleteElement(element, page, row, col),
       getPdfLayout : () => pdfLayout,
       // TODO: implement combine and split functions
       combineCols : (page, row, colx, coly) => console.log('Combine col: ', colx, ' with col: ', coly, ' at row: ', row),
