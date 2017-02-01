@@ -17,11 +17,11 @@ const pdfManager = () => {
      * Implement move function of the elements.
      */
   const deleteElement = (element, page, row, col) => pdfLayout[page][row].cols[col] = defaultElement;
-  const moveElement = (element, page, row, col) => { } //First delete
+  const moveElement = (element, page, row, col) => pdfLayout[page][row].cols[col] = element;
   const findElementInLayout = (element, page) => pdfLayout[page].reduce((a, b) => a.cols.concat(b.cols)).find(_element => _element.id == element.id);
   const updateElementInLayout = (element, page, row, col) => {
     let elementInLayout = findElementInLayout(element, page);
-    elementInLayout == undefined ? pdfLayout[page][row].cols[col] = element : elementInLayout.location = element.location;
+    elementInLayout == undefined ? pdfLayout[page][row].cols[col] = element : moveElement(element, page, row, col);
   };
   /*const isItPossibleToSplit = (row) => pdfLayoutMetaData[row].numCol > 1;
   const isItPossibleToCombine = (row) => pdfLayoutMetaData[row].numCol < 1;*/
