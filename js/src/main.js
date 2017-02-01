@@ -80,6 +80,13 @@ let addElementToTools = () => {
 }
 
 /**
+ * Combine cols
+ */
+let combineCols = () => {
+    console.log('is it possible to combine cols: ', pdfManager.combineCols('firstpage', 0, 0, 1))
+}
+
+/**
  * Populates the dropdown in the modal view
  * TODO: only add new templates and no duplicates!
  */
