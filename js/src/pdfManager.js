@@ -26,10 +26,13 @@ const pdfManager = () => {
     let elementInLayout = findElementInLayout(element, page);
     elementInLayout == undefined ? pdfLayout[page][row].cols[col] = element : moveElement(element, page, row, col);
   };
-  /*const isItPossibleToSplit = (row) => pdfLayoutMetaData[row].numCol > 1;*/
   const isCombined = element => element.combined;
-  const isItPossibleToCombine = (page, row, colx, coly) => !pdfLayout[page][row].cols.filter( col => col.id === colx.id || col.id === coly.id)
+  const isItPossibleToCombine = (page, row, colx, coly) => !pdfLayout[page][row].cols.filter(col => col.id === colx.id || col.id === coly.id)
                                                                                      .every(isCombined);
+  const combineCols = (page, row, colx, coly) => pdfLayout[page][row].cols.filter(col => col.id === colx.id || col.id === coly.id)
+                                                                          .every(element => element.combined = true)
+                                                                          .every(element => element.combinedInfo.colIds.push(colx.id))
+                                                                          .every(element => element.combinedInfo.colIds.push(coly.id));
   return {
       initPDFView : (rows, cols) => {
           for (let page in pdfLayout) {
@@ -45,7 +48,7 @@ const pdfManager = () => {
       deleteElementFromLayout : (element, page) => deleteElement(element, page),
       getPdfLayout : () => pdfLayout,
       // TODO: implement combine and split functions
-      combineCols : (page, row, colx, coly) => isItPossibleToCombine(page, row, colx, coly),
+      combineCols : (page, row, colx, coly) => { if (isItPossibleToCombine(page, row, colx, coly)) { combineCols(page, row, colx, coly) } },
       splitCols : (page, row, col) => console.log('Split col: ', col, ' at row: ', row)
   }
 }
