@@ -31,8 +31,8 @@ gulp.task('js', function() {
 
 gulp.task('watch', function() {
   gulp.watch('css/*.css', ['css']);
-  gulp.watch('js/src/**/*.js', ['babel']);
-})
+  gulp.watch('js/src/**/*.js', ['babel', 'livereload']);
+});
 
 gulp.task('babel', function() {
     gulp.src('js/src/**/*.js')
@@ -40,6 +40,6 @@ gulp.task('babel', function() {
             presets: ['es2015']
         }))
         .pipe(gulp.dest('js/dest'));
-})
+});
  
 gulp.task('default', ['webserver', 'livereload', 'watch']);
