@@ -7,11 +7,13 @@ const pdfManager = () => {
   };
   const defaultElement = {
       "combined" : false,
-      "combinedInfo" : {
-          "colIds" : [ ]
-      },
+      "id" : null,
+      "combinedColId" : null,
       "element" : null
   };
+    /**
+     * TODO: refactor delete to only set element to null and trash defaultElement
+     */
   const deleteElement = (element, page) => pdfLayout[page].forEach(row => {
       let pos = row.cols.map(e =>  e.id).indexOf(element.id);
       if (pos !== -1)
@@ -27,19 +29,23 @@ const pdfManager = () => {
     elementInLayout == undefined ? pdfLayout[page][row].cols[col] = element : moveElement(element, page, row, col);
   };
   const isCombined = element => element.combined;
-  const isItPossibleToCombine = (page, row, colx, coly) => !pdfLayout[page][row].cols.filter(col => col.id === colx.id || col.id === coly.id)
+  const isItPossibleToCombine = (page, row, colx, coly) => !pdfLayout[page][row].cols.filter(col => col.id === colx || col.id === coly)
                                                                                      .every(isCombined);
-  const combineCols = (page, row, colx, coly) => pdfLayout[page][row].cols.filter(col => col.id === colx.id || col.id === coly.id)
-                                                                          .every(element => element.combined = true)
-                                                                          .every(element => element.combinedInfo.colIds.push(colx.id))
-                                                                          .every(element => element.combinedInfo.colIds.push(coly.id));
+  const combineCols = (page, row, colx, coly) => pdfLayout[page][row].cols.filter(col => col.id === colx || col.id === coly)
+                                                                          .forEach(col => {
+                                                                              col.combined = true;
+                                                                              col.combinedColId.push(colx);
+                                                                              col.combinedColId.push(coly);
+                                                                          });
   return {
       initPDFView : (rows, cols) => {
           for (let page in pdfLayout) {
               for (let i = 0; i < rows; i++) {
                   pdfLayout[page].push({ cols: [ ] });
                   for (let j = 0; j < cols; j++) {
-                      pdfLayout[page][i].cols.push(defaultElement)
+                      pdfLayout[page][i].cols.push(_.clone(defaultElement));
+                      pdfLayout[page][i].cols[j].id = _.clone(j);
+                      pdfLayout[page][i].cols[j].combinedColId = _.clone([ ]);
                   }
               }
           }
@@ -47,7 +53,7 @@ const pdfManager = () => {
       addElementToLayout : (element, page, row, col) => updateElementInLayout(element, page, row, col),
       deleteElementFromLayout : (element, page) => deleteElement(element, page),
       getPdfLayout : () => pdfLayout,
-      // TODO: implement combine and split functions
+      // TODO: implement split function
       combineCols : (page, row, colx, coly) => { if (isItPossibleToCombine(page, row, colx, coly)) { combineCols(page, row, colx, coly) } },
       splitCols : (page, row, col) => console.log('Split col: ', col, ' at row: ', row)
   }
