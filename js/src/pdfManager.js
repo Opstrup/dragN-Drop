@@ -6,25 +6,26 @@ const pdfManager = () => {
       lastpage : [ ]
   };
   const defaultElement = {
+      "id" : null
+  };
+  const defaultCol = {
       "combined" : false,
       "id" : null,
       "combinedColId" : null,
       "element" : null
   };
-  // TODO: refactor delete to only set element to null and trash defaultElement
-  const deleteElement = (element, page) => pdfLayout[page].forEach(row => {
-      let pos = row.cols.map(e =>  e.id).indexOf(element.id);
-      if (pos !== -1)
-          row.cols[pos] = defaultElement
-  });
+  const deleteElement = (element, page) => {
+      let col = findElementInLayout(element, page);
+      col.element = _.clone(defaultElement);
+  };
   const moveElement = (element, page, row, col) => {
       deleteElement(element, page);
-      pdfLayout[page][row].cols[col] = element;
+      pdfLayout[page][row].cols[col].element = element;
   };
-  const findElementInLayout = (element, page) => pdfLayout[page].reduce((a, b) => a.cols.concat(b.cols)).find(_element => _element.id == element.id);
+  const findElementInLayout = (element, page) => pdfLayout[page].reduce((a, b) => a.cols.concat(b.cols)).find(_col => _col.element.id == element.id);
   const updateElementInLayout = (element, page, row, col) => {
     let elementInLayout = findElementInLayout(element, page);
-    elementInLayout == undefined ? pdfLayout[page][row].cols[col] = element : moveElement(element, page, row, col);
+    elementInLayout == undefined ? pdfLayout[page][row].cols[col].element = element : moveElement(element, page, row, col);
   };
   // TODO: Fix bug, not able to combine two already combined cols with a third
   const isCombined = element => element.combined;
@@ -42,9 +43,10 @@ const pdfManager = () => {
               for (let i = 0; i < rows; i++) {
                   pdfLayout[page].push({ cols: [ ] });
                   for (let j = 0; j < cols; j++) {
-                      pdfLayout[page][i].cols.push(_.clone(defaultElement));
+                      pdfLayout[page][i].cols.push(_.clone(defaultCol));
                       pdfLayout[page][i].cols[j].id = _.clone(j);
                       pdfLayout[page][i].cols[j].combinedColId = _.clone([ ]);
+                      pdfLayout[page][i].cols[j].element = _.clone(defaultElement);
                   }
               }
           }
