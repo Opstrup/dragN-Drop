@@ -14,10 +14,7 @@ const pdfManager = () => {
       "combinedColId" : null,
       "element" : null
   };
-  const deleteElement = (element, page) => {
-      let col = findElementInLayout(element, page);
-      col.element = _.clone(defaultElement);
-  };
+  const deleteElement = (element, page) => findElementInLayout(element, page).element = _.clone(defaultElement);
   const moveElement = (element, page, row, col) => {
       deleteElement(element, page);
       pdfLayout[page][row].cols[col].element = element;
@@ -55,7 +52,7 @@ const pdfManager = () => {
       deleteElementFromLayout : (element, page) => deleteElement(element, page),
       getPdfLayout : () => pdfLayout,
       // TODO: implement split function
-      combineCols : (page, row, colx, coly) => { if (isItPossibleToCombine(page, row, colx, coly)) { combineCols(page, row, colx, coly) } },
+      combineCols : (page, row, colx, coly) => ( isItPossibleToCombine(page, row, colx, coly) === true ? combineCols(page, row, colx, coly) : false ),
       splitCols : (page, row, col) => console.log('Split col: ', col, ' at row: ', row)
   }
 }

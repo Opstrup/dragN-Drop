@@ -85,11 +85,12 @@ let addElementToTools = () => {
 let combineCols = (button) => {
     let row = $(button).parent().parent().data('role');
     let ownCol = $(button).parent();
-    let otherCol = ( $(button).parent().next() === [] ? $(button).parent().next() : $(button).parent().prev() );
-    pdfManager.combineCols('firstpage', row, ownCol.data('role'), otherCol.data('role'));
-    otherCol.hide();
-    ownCol.removeClass('col-md-4');
-    ownCol.addClass('col-md-8');
+    let otherCol = ( $(button).parent().next().length != 0 ? $(button).parent().next() : $(button).parent().prev() );
+    if (pdfManager.combineCols('firstpage', row, ownCol.data('role'), otherCol.data('role')) != false) {
+        otherCol.hide();
+        ownCol.removeClass('col-md-4');
+        ownCol.addClass('col-md-8');
+    }
 };
 
 /**
