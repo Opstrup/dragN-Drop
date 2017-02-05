@@ -96,11 +96,15 @@ let combineCols = (button) => {
 /**
  * Split cols
  */
-let splitCols = (button) => {
+let splitCol = (button) => {
     let row = $(button).parent().parent().data('role');
     let ownCol = $(button).parent();
     let otherCol = ( $(button).parent().next().length != 0 ? $(button).parent().next() : $(button).parent().prev() );
-
+    if (pdfManager.splitCol('firstpage', row, ownCol.data('role'), otherCol.data('role')) != false) {
+        otherCol.show();
+        ownCol.removeClass('col-md-8');
+        ownCol.addClass('col-md-4');
+    }
 };
 
 /**
