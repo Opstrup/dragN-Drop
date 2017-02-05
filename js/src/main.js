@@ -97,7 +97,10 @@ let combineCols = (button) => {
  * Split cols
  */
 let splitCols = (button) => {
-  console.log('split the col if possible');
+    let row = $(button).parent().parent().data('role');
+    let ownCol = $(button).parent();
+    let otherCol = ( $(button).parent().next().length != 0 ? $(button).parent().next() : $(button).parent().prev() );
+
 };
 
 /**

@@ -34,6 +34,13 @@ const pdfManager = () => {
                                                                               col.combinedColId.push(colx);
                                                                               col.combinedColId.push(coly);
                                                                           });
+  const isItPossibleToSplit = (page, row, col) => pdfLayout[page][row].cols[col].combined;
+  const splitCol = (page, row, col) => {
+                                         /**
+                                          * 1. set combined for both cols to false
+                                          * 2. remove col ids from combinedColId
+                                          **/
+                                        };
   return {
       initPDFView : (rows, cols) => {
           for (let page in pdfLayout) {
@@ -53,6 +60,6 @@ const pdfManager = () => {
       getPdfLayout : () => pdfLayout,
       // TODO: implement split function
       combineCols : (page, row, colx, coly) => ( isItPossibleToCombine(page, row, colx, coly) === true ? combineCols(page, row, colx, coly) : false ),
-      splitCols : (page, row, col) => console.log('Split col: ', col, ' at row: ', row)
+      splitCols : (page, row, col) => ( isItPossibleToSplit(page, row, col) === true ? splitCol(page, row, col) : false )
   }
 }
