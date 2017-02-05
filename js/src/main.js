@@ -85,8 +85,7 @@ let addElementToTools = () => {
 let combineCols = (button) => {
     let row = $(button).parent().parent().data('role');
     let ownCol = $(button).parent();
-    let otherCol = $(button).parent().next();
-    console.log('Combine col: ', ownCol.data('role'), 'with col: ', otherCol.data('role'),' at row: ', $(button).parent().parent().data('role'));
+    let otherCol = ( $(button).parent().next() === [] ? $(button).parent().next() : $(button).parent().prev() );
     pdfManager.combineCols('firstpage', row, ownCol.data('role'), otherCol.data('role'));
     otherCol.hide();
     ownCol.removeClass('col-md-4');

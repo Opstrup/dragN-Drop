@@ -11,9 +11,7 @@ const pdfManager = () => {
       "combinedColId" : null,
       "element" : null
   };
-    /**
-     * TODO: refactor delete to only set element to null and trash defaultElement
-     */
+  // TODO: refactor delete to only set element to null and trash defaultElement
   const deleteElement = (element, page) => pdfLayout[page].forEach(row => {
       let pos = row.cols.map(e =>  e.id).indexOf(element.id);
       if (pos !== -1)
@@ -28,6 +26,7 @@ const pdfManager = () => {
     let elementInLayout = findElementInLayout(element, page);
     elementInLayout == undefined ? pdfLayout[page][row].cols[col] = element : moveElement(element, page, row, col);
   };
+  // TODO: Fix bug, not able to combine two already combined cols with a third
   const isCombined = element => element.combined;
   const isItPossibleToCombine = (page, row, colx, coly) => !pdfLayout[page][row].cols.filter(col => col.id === colx || col.id === coly)
                                                                                      .every(isCombined);
